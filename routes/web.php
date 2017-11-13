@@ -12,5 +12,15 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('threads');
 });
+
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/threads', 'ThreadsController@index')->name('threads');
+Route::get('/threads/create', 'ThreadsController@create');
+Route::get('/threads/{thread}', 'ThreadsController@show');
+Route::post('/threads', 'ThreadsController@store')->name('store-thread');
+Route::post('/threads/{thread}/replies', 'RepliesController@store');
