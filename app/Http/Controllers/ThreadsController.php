@@ -41,9 +41,16 @@ class ThreadsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {   
+        $this->validate($request, [
+            'title' => 'required',
+            'body' => 'required',
+            'channel_id' => 'required|exists:channels,id'
+        ]);
+
         $thread = Thread::create([
             'user_id' => auth()->id(),
+            'channel_id' => request('channel_id'),
             'title' => request('title'),
             'body' => request('body')
         ]);
@@ -53,11 +60,11 @@ class ThreadsController extends Controller
 
     /**
      * Display the specified resource.
-     *
+     * @param  $channelId
      * @param  \App\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($channelId, Thread $thread)
     {
         return view('threads.show', compact('thread'));
     }
@@ -71,7 +78,7 @@ class ThreadsController extends Controller
     public function edit(Thread $thread)
     {
         //
-    }
+    } 
 
     /**
      * Update the specified resource in storage.
