@@ -22,7 +22,7 @@ class CreateThreadsTest extends TestCase
 
          $this->withExceptionHandling()
             ->get('/threads/create')
-            ->assertRedirect('/register');
+            ->assertRedirect('/login');
    }
    
    /** @test */
