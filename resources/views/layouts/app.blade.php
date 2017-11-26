@@ -37,11 +37,12 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('threads') }}">All Threads</a></li>
+                        <li><a href="{{route('create-thread')}}">New Thread</a></li>
 
                         <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">All Channels<span class="caret"></span></a>
                           <ul class="dropdown-menu">
-                            @foreach (App\Channel::get() as $channel)
+                            @foreach (App\Channel::all() as $channel)
                                 <li><a href="{{route('channel', ['channel'=> $channel->slug])}}">{{ucfirst($channel->name)}}</a></li>
                             @endforeach
                           </ul>

@@ -27,6 +27,8 @@ class ThreadsController extends Controller
             $threads = Thread::latest()->get();
         }
 
+
+
         return view('threads.index', compact('threads'));
     }
 
