@@ -20,7 +20,7 @@
             {{$replies->links()}}
 
             @if(auth()->check())
-                <form method="POST" action="{{$thread->path() .'/replies'}}">
+                <form method="POST" action="{{$thread->path() .'/replies'}}" style="margin-bottom: 1.5em;">
                     {{csrf_field()}}
                     <div class="form-group">
                         <textarea name="body" id="body" class="form-control" placeholder="Have something to say?" rows="5"></textarea>
