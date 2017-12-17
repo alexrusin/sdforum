@@ -6,6 +6,13 @@
         		{{$thread->title}}
     		</span>
     		<span>{{$thread->created_at->diffForHumans()}}</span>
+            @if (Auth::check())
+                <form action="{{$thread->path()}}" method="POST">
+                    {{csrf_field()}}
+                    {{method_field('DELETE')}}
+                    <button type="submit" class="btn btn-link">Delete</button>
+                </form>
+            @endif
     		 
     	</div>
        

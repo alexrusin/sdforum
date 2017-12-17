@@ -3,15 +3,17 @@
 namespace Tests\Feature;
 
 use App\Channel;
+use App\Reply;
 use App\Thread;
 use App\User;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class CreateThreadsTest extends TestCase
 {
-	use RefreshDatabase;
+	use DatabaseMigrations;
 
    /** @test */
    function unauthenticated_user_cannot_create_threads()
@@ -65,7 +67,37 @@ class CreateThreadsTest extends TestCase
             ->assertSessionHasErrors('channel_id');   
    }
 
-   function publishThread($overrides = [] )
+   /** @test */
+   public function guest_cannot_delete_thread() 
+   {  
+      $this->withExceptionHandling();
+      $thread = create(Thread::class);
+      $response = $this->delete($thread->path());
+      $response->assertRedirect('/login');
+   }
+
+   /** @test */
+   public function a_thread_can_be_deleted() 
+   {
+      $this->signIn();
+      $thread = create(Thread::class);
+      $reply = create(Reply::class, ['thread_id' => $thread->id]);
+
+      $response = $this->json('DELETE', $thread->path());
+
+      $response->assertStatus(204);
+
+      $this->assertDatabaseMissing('threads', ['id' => $thread->id]);
+      $this->assertDatabaseMissing('replies', ['id' => $reply->id]);
+   }
+
+   /** @test */
+   public function threads_can_only_be_deleted_by_those_who_have_permissions() 
+   {
+      // TODO
+   }
+
+   protected function publishThread($overrides = [] )
    {
       $this->withExceptionHandling()->signIn();
       
