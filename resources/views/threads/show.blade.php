@@ -4,15 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <a href="#">{{$thread->creator->name}}</a> posted: <br>
-                    {{$thread->title}}
-                </div>
-                <div class="panel-body">
-                    <div class="body">{{$thread->body}}</div>
-                </div>
-            </div>
+            @include('shared.thread-panel')
+            
             @foreach($replies as $reply)
                 @include("threads.reply")
             @endforeach
