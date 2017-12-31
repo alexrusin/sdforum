@@ -17,8 +17,23 @@ class FavoritesController extends Controller
 
     public function store(Reply $reply) 
     {
-    	$reply->favorite(); 
+    	$reply->favorite();
+
+    	if (request()->wantsJson()) {
+    		return response(['status' => 'Favorite created']);
+    	} 
 
     	return back();  	
+    }
+
+    public function delete(Reply $reply)
+    {
+    	$reply->unfavorite();
+
+    	if (request()->wantsJson()) {
+    		return response(['status' => 'Favorite deleted']);
+    	}
+
+    	return back();
     }
 }
