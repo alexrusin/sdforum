@@ -17,7 +17,8 @@
 
         computed: {
             classes() {
-                return ['btn', this.isFavorited ? 'btn-primary' : 'btn-default'];
+                return ['btn', 
+                this.isFavorited ? 'btn-primary' : 'btn-default'];
             },
 
             endpoint() {
