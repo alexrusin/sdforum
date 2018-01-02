@@ -15,6 +15,11 @@ window.flash = function(message) {
 	window.events.$emit('flash', message);
 };
 
+Vue.prototype.authorize = function (handler) {
+	let user = window.App.user;
+	return user ? handler(user) : false;
+};
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -22,8 +27,8 @@ window.flash = function(message) {
  */
 
 Vue.component('flash', require('./components/FlashComponent.vue'));
-Vue.component('reply', require('./components/ReplyComponent.vue'));
-Vue.component('favorite', require('./components/FavoriteComponent.vue'));
+
+Vue.component('thread-view', require('./pages/ThreadComponent.vue'));
 
 const app = new Vue({
     el: '#app'
