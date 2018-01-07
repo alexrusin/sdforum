@@ -59723,6 +59723,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReplyComponent_vue__ = __webpack_require__(181);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReplyComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewReplyComponent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_collection__ = __webpack_require__(184);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_js__ = __webpack_require__(195);
 //
 //
 //
@@ -59735,6 +59736,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
 
 
 
@@ -59751,6 +59753,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     created: function created() {
         this.fetch();
+
+        // let endArray = array_merge({ bgColor: 3, textColor: 4 }, {'bgColor':5});
+
+        // console.log(endArray);
     },
 
 
@@ -60689,6 +60695,68 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export array_merge */
+function array_merge() {
+  // eslint-disable-line camelcase
+
+  var args = Array.prototype.slice.call(arguments);
+  var argl = args.length;
+  var arg;
+  var retObj = {};
+  var k = '';
+  var argil = 0;
+  var j = 0;
+  var i = 0;
+  var ct = 0;
+  var toStr = Object.prototype.toString;
+  var retArr = true;
+  for (i = 0; i < argl; i++) {
+    if (toStr.call(args[i]) !== '[object Array]') {
+      retArr = false;
+      break;
+    }
+  }
+  if (retArr) {
+    retArr = [];
+    for (i = 0; i < argl; i++) {
+      retArr = retArr.concat(args[i]);
+    }
+    return retArr;
+  }
+  for (i = 0, ct = 0; i < argl; i++) {
+    arg = args[i];
+    if (toStr.call(arg) === '[object Array]') {
+      for (j = 0, argil = arg.length; j < argil; j++) {
+        retObj[ct++] = arg[j];
+      }
+    } else {
+      for (k in arg) {
+        if (arg.hasOwnProperty(k)) {
+          if (parseInt(k, 10) + '' === k) {
+            retObj[ct++] = arg[k];
+          } else {
+            retObj[k] = arg[k];
+          }
+        }
+      }
+    }
+  }
+  return retObj;
+}
 
 /***/ })
 /******/ ]);

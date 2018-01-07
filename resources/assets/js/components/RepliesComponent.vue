@@ -13,7 +13,8 @@
 <script>
     import Reply from './ReplyComponent.vue';
     import NewReply from './NewReplyComponent.vue';
-    import collection from '../mixins/collection'
+    import collection from '../mixins/collection';
+    import {array_merge} from '../lib.js';
     export default {
 
         components: {Reply, NewReply},
@@ -27,6 +28,11 @@
 
         created() {
             this.fetch();
+
+            // let endArray = array_merge({ bgColor: 3, textColor: 4 }, {'bgColor':5});
+
+            // console.log(endArray);
+
         },
 
         methods: {
