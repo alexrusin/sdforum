@@ -33,6 +33,7 @@ class FavoritesController extends Controller
     	if (request()->wantsJson()) {
     		return response(['status' => 'Favorite deleted']);
     	}
+        csrf_token();
 
     	return back();
     }

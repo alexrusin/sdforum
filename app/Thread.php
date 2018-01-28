@@ -5,6 +5,7 @@ namespace App;
 use App\Activity;
 use App\Channel;
 use App\Reply;
+use App\ThreadSubscription;
 use App\Traits\RecordsActivity;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
@@ -17,6 +18,8 @@ class Thread extends Model
 
     protected $with = ['creator', 'channel'];
 
+    protected $appends = ['isSubscribedTo'];
+
     protected static function boot()
     {
         parent::boot();
@@ -28,6 +31,13 @@ class Thread extends Model
         static::deleting(function($thread){
             $thread->replies->each->delete();
         });
+    }
+
+    public function getIsSubscribedToAttribute()
+    {
+        return $this->subscriptions()
+                ->where('user_id', auth()->id())
+                ->exists();
     }
 	
     public function path()
@@ -61,5 +71,24 @@ class Thread extends Model
     public function scopeFilter($query, $filters)
     {
         return $filters->apply($query);
+    }
+
+    public function subscribe($userId = null) 
+    {
+        $this->subscriptions()->create([
+            'user_id' => $userId ?: auth()->id()
+        ]);
+    }
+
+    public function unsubscribe($userId = null)
+    {
+        $this->subscriptions()
+            ->where('user_id', $userId ?: auth()->id())
+            ->delete();
+    }
+
+    public function subscriptions()
+    {
+        return $this->hasMany(ThreadSubscription::class);
     }
 }
