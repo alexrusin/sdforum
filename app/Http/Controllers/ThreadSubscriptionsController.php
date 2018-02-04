@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
+use App\User;
 use Illuminate\Http\Request;
 
 class ThreadSubscriptionsController extends Controller
@@ -16,4 +17,5 @@ class ThreadSubscriptionsController extends Controller
     {
     	$thread->unsubscribe();
     }
+
 }
