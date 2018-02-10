@@ -13,6 +13,10 @@ class ThreadsController extends Controller
 
     public function __construct()
     {
+        if (app()->environment('production')) {
+            $this->middleware('under-construction');
+        }
+       
         $this->middleware('auth')->except(['index', 'show']);
     }
 
