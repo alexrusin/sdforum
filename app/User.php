@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Activity;
+use App\Reply;
 use App\Thread;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -42,6 +43,11 @@ class User extends Authenticatable
     public function activity() 
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function lastReply() 
+    {
+        return $this->hasOne(Reply::class)->latest();
     }
 
     public function read($thread) {

@@ -34,4 +34,9 @@ class SpamFree implements Rule
         }
         
     }
+
+    public function message() 
+    {
+
+    }
 }
