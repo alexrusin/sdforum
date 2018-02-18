@@ -2,8 +2,8 @@
 
 namespace App;
 
-use App\Activity;
 use App\Channel;
+use App\Events\ThreadReceivedNewReply;
 use App\Reply;
 use App\ThreadSubscription;
 use App\Traits\RecordsActivity;
@@ -62,17 +62,9 @@ class Thread extends Model
     {
     	$reply = $this->replies()->create($reply);
 
-        $this->notifySubscribers($reply);
+        event(new ThreadReceivedNewReply($reply, $this));
 
         return $reply;      
-    }
-
-    public function notifySubscribers($reply)
-    {
-        $this->subscriptions
-            ->where('user_id', '!=', $reply->user_id)
-            ->each
-            ->notify($reply); 
     }
 
     public function channel()

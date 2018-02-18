@@ -46,9 +46,11 @@ class ParticipateInForumTest extends TestCase
     {
         $this->withExceptionHandling()->signIn();
         $thread = create(Thread::class);
-        $reply = make(Reply::class, ['body' => null]);
+        $reply = make('App\Reply', [
+            'body' => null
+        ]);
 
-        $this->post($thread->path() . '/replies', $reply->toArray())
+        $this->postJson($thread->path() . '/replies', $reply->toArray())
             ->assertStatus(422);
     }
 
@@ -112,19 +114,21 @@ class ParticipateInForumTest extends TestCase
     /** @test */
     function replies_that_contain_spam_will_not_be_created()
     {
+        $this->withExceptionHandling();
         $this->signIn();
         $thread = create('App\Thread');
         $reply = make('App\Reply', [
             'body' => 'yahoo Customer Support',
         ]);
 
-        $this->post($thread->path() .'/replies', $reply->toArray())
+        $this->postJson($thread->path() .'/replies', $reply->toArray())
             ->assertStatus(422);
     } 
 
     /** @test */
     function users_may_reply_a_max_1_per_min()
     {
+        $this->withExceptionHandling();
         $this->signIn();
         $thread = create('App\Thread');
 
@@ -136,6 +140,6 @@ class ParticipateInForumTest extends TestCase
             ->assertStatus(200);
 
         $this->post($thread->path() .'/replies', $reply->toArray())
-            ->assertStatus(422);
+            ->assertStatus(429);
     } 
 }
