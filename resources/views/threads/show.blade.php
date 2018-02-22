@@ -24,3 +24,7 @@
     </div>
 </thread-view>
 @endsection
+
+@push('styles')
+    <link rel="stylesheet" href="{{asset('css/vendor/jquery.atwho.css')}}">
+@endpush

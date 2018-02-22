@@ -41,16 +41,7 @@ class RepliesController extends Controller
             'body' => 'required|spamfree'
         ]);
 
-        try {
-
-            $reply->update(request(['body']));
-        } catch (\Exception $e) {
-            return response(
-                'Sorry, your reply could not be updated at this time', 
-                422
-            );
-        }
-
+        $reply->update(request(['body']));
       
     }
 
