@@ -2,6 +2,7 @@
 
 use App\Channel;
 use App\Thread;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class ThreadsSeeder extends Seeder
@@ -36,5 +37,11 @@ class ThreadsSeeder extends Seeder
 			$channel->save();
 			array_shift($projects);
 		}
+
+		User::create([
+			'name' => 'Alex',
+			'email' => 'alex@alex.com',
+			'password' => bcrypt('password')
+		]);
     }
 }
