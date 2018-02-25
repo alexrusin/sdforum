@@ -13,8 +13,8 @@ class UserAvatarController extends Controller
    		request()->validate([
    			'avatar' => 'required|image'
    		]);
-
-      Storage::delete(auth()->user()->getOriginal()['avatar_path']);
+    
+      Storage::delete(auth()->user()->getOriginal('avatar_path'));
 
    		auth()->user()->update([
    			'avatar_path' => request()->file('avatar')->store('avatars')
