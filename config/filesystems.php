@@ -65,4 +65,6 @@ return [
 
     ],
 
+    'trending_threads' => env('TRENDING_THREADS', 'trending_threads')
+
 ];

@@ -1,16 +1,23 @@
 <template>
 	<div>
-		<h1 v-text="user.name"></h1>
-			<form v-if="canUpdate" method="POST" enctype="multipart/form-data">
-				<input type="file" name="avatar" accept='image/*' @change="onChange">
-			</form>
-		<img :src="avatar" width="50" height="50"> 
+		<div class="level">
+			<img :src="avatar" width="50" height="50" class="mr-1"> 
+			<h1 v-text="user.name"></h1>
+		</div>
+		
+		<form v-if="canUpdate" method="POST" enctype="multipart/form-data">
+			<image-upload name="avatar" @loaded="onLoad"></image-upload>	
+		</form>
+		
 	</div>
 </template>
 
 <script>
+	import ImageUpload from './ImageUpload.vue';
+
 	export default {
 		props: ['user'],
+		components: {ImageUpload},
 		data() {
 			return {
 				avatar: this.user.avatar_path
@@ -24,18 +31,9 @@
 		},
 
 		methods: {
-			onChange(e) {
-				if(! e.target.files.length) return;
-				let file = e.target.files[0];
-
-				let reader = new FileReader();
-				reader.readAsDataURL(file);
-
-				reader.onload = e => {
-					this.avatar = e.target.result;
-				}
-
-				this.persist(file);
+			onLoad(avatar) {
+				this.avatar = avatar.src;
+				this.persist(avatar.file);
 			},
 
 			persist(file) {

@@ -4,6 +4,7 @@ use App\Channel;
 use App\Thread;
 use App\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Redis;
 
 class ThreadsSeeder extends Seeder
 {
@@ -43,5 +44,7 @@ class ThreadsSeeder extends Seeder
 			'email' => 'alex@alex.com',
 			'password' => bcrypt('password')
 		]);
+
+		Redis::del(config('filesystems.trending_threads'));
     }
 }
