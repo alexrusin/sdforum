@@ -21,10 +21,11 @@
             <a href="{{$thread->path()}}"><strong>{{$thread->replies_count}} {{str_plural('reply', $thread->replies_count)}}</strong></a>
         </div> 
     </div>
-    <div class="panel-body"> 
-        <article>                        
-            <div class="body">{{$thread->body}}</div>
-        </article>
+    <div class="panel-body">
+        <div class="body">{{$thread->body}}</div>
+    </div>
+    <div class="panel-footer">
+        {{$thread->visits()}} visits
     </div>
 </div>
 @empty

@@ -4,6 +4,7 @@ namespace App;
 
 use App\Channel;
 use App\Events\ThreadReceivedNewReply;
+use App\RecordsVisits;
 use App\Reply;
 use App\ThreadSubscription;
 use App\Traits\RecordsActivity;
@@ -12,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
-    use RecordsActivity;
+    use RecordsActivity, RecordsVisits;
     
 	protected $guarded = [];
 

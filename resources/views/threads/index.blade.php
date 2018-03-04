@@ -8,22 +8,24 @@
             {{$threads->render()}};
         </div>
         <div class="col-md-4">
-        	<div class="panel panel-default">
-        		<div class="panel-heading">
-        			<strong>Trending threads</strong>
-        		</div>
-        		<div class="panel-body">
-        			<ul class="list-group">
-        				@foreach($trending as $thread)
-	        				<li class="list-group-item">
-	        					<a href="{{url($thread->path)}}"> 
-	        						{{$thread->title}}
-	        					</a>
-	        				</li>
-        				@endforeach
-        			</ul>
-        		</div>
-        	</div>
+            @if(count($trending))
+            	<div class="panel panel-default">
+            		<div class="panel-heading">
+            			<strong>Trending threads</strong>
+            		</div>
+            		<div class="panel-body">
+            			<ul class="list-group">
+            				@foreach($trending as $thread)
+    	        				<li class="list-group-item">
+    	        					<a href="{{url($thread->path)}}"> 
+    	        						{{$thread->title}}
+    	        					</a>
+    	        				</li>
+            				@endforeach
+            			</ul>
+            		</div>
+            	</div>
+            @endif
         </div>
     </div>
 </div>
