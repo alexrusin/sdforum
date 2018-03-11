@@ -141,7 +141,7 @@ class ThreadTest extends TestCase
     /** @test */
     public function a_thread_records_each_visit()
     {
-        $thread = make('App\Thread', ['id' => -1]);
+        $thread = make('App\Thread', ['id' => 9999]);
 
         $thread->resetVisits();
         $this->assertSame(0, $thread->visits());

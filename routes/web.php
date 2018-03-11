@@ -21,9 +21,9 @@ Route::get('/threads/{channel}', 'ThreadsController@index')->name('channel');
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
 Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy')->name('delete-thread');
 
-Route::post('/threads', 'ThreadsController@store')->name('store-thread');
+Route::post('/threads', 'ThreadsController@store')->name('store-thread')->middleware('must-be-confirmed');
 Route::get('/threads/{channel}/{thread}/replies', 'RepliesController@index');
-Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store');
+Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store')->middleware('must-be-confirmed');
 Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('delete-reply');
 Route::patch('/replies/{reply}', 'RepliesController@update')->name('update-reply');
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('favorite-reply');
@@ -34,6 +34,7 @@ Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsC
 Route::get('/profiles/{user}', 'ProfilesController@show')->name('user-profile');
 Route::delete('/profiles/{user}/notifications/{notificationId}', 'UserNotificationsController@destroy');
 Route::get('/profiles/{user}/notifications', 'UserNotificationsController@index');
+Route::get('/register/confirm', 'Auth\RegisterConfirmationController@index')->name('confirm-email');
 
 Route::get('/api/users', 'Api\UsersController@index');
 Route::post('/api/users/{user}/avatar', 'Api\UserAvatarController@store')->middleware('auth')->name('avatar');

@@ -59,6 +59,7 @@ class ThreadsController extends Controller
      */
     public function store()
     {   
+
         request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',

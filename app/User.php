@@ -19,7 +19,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'avatar_path'
+        'name', 'email', 'password', 'avatar_path', 'confirmed', 'confirmation_token'
+    ];
+
+    protected $casts = [
+        'confirmed' => 'boolean'
     ];
 
     /**
@@ -44,6 +48,13 @@ class User extends Authenticatable
     public function activity() 
     {
         return $this->hasMany(Activity::class);
+    }
+
+    public function confirm() 
+    {
+        $this->confirmed = true;
+        $this->confirmation_token = null;
+        $this->save();
     }
 
     public function lastReply() 
