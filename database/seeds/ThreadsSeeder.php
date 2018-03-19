@@ -42,7 +42,8 @@ class ThreadsSeeder extends Seeder
 		User::create([
 			'name' => 'Alex',
 			'email' => 'alex@alex.com',
-			'password' => bcrypt('password')
+			'password' => bcrypt('password'),
+			'confirmed' => true
 		]);
 
 		Redis::del(config('filesystems.trending_threads'));
