@@ -1,5 +1,5 @@
 <template>
-	<div :id="'reply-'+id" class="panel panel-default">
+	<div :id="'reply-'+id" class="panel" :class="isBest ? 'panel-success' : 'panel-default'">
 	    <div class="panel-heading">
 			<div class="level">
 				<h5 class="flex">
@@ -30,11 +30,16 @@
 	    	</div>
 	    </div>
 		
-		<div class="panel-footer level" v-if="canUpdate">
-			<button type="button" class="btn btn-xs mr-1 btn-primary" @click="editing=true">Edit</button>
-			
+		<div class="panel-footer level">
 
-			<button type="button" class="btn btn-danger btn-xs" @click="destroy">Delete</button>
+			<div v-if="authorize('updateReply', reply)">
+				<button type="button" class="btn btn-xs mr-1 btn-primary" @click="editing=true">Edit</button>
+
+			<button type="button" class="btn btn-danger mr-1 btn-xs" @click="destroy">Delete</button>
+			</div>
+			
+			<button type="button" class="btn btn-default ml-a btn-xs" @click="markBestReply" v-show="!isBest">Best Reply?</button>
+
 			
 		</div>
 		
@@ -51,22 +56,23 @@
 			return {
 				editing: false,
 				id: this.data.id,
-				body: this.data.body
+				body: this.data.body,
+				isBest: this.data.isBest,
+				reply: this.data
 			};
 		},
 
 		computed: {
-			signedIn() {
-				return window.App.signedIn;
-			},
-
-			canUpdate() {
-				return this.authorize(user => this.data.user_id == user.id);
-			},
 
 			ago() {
 				return moment(this.data.created_at + 'Z').fromNow();
 			}
+		},
+
+		created() {
+			window.events.$on('best-reply-selected', id => {
+				this.isBest = (id === this.id);
+			});
 		},
 
 		methods: {
@@ -87,8 +93,16 @@
 				axios.delete('/replies/' + this.id);
 
 				this.$emit('deleted', this.data.id);
-			}
+			},
 
+			markBestReply() {
+
+				this.isBest = true;
+
+				axios.post('/replies/' + this.reply.id + '/best');
+
+				window.events.$emit('best-reply-selected', this.reply.id);
+			}
 
 		}
 	}

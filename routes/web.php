@@ -28,6 +28,10 @@ Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('delete-rep
 Route::patch('/replies/{reply}', 'RepliesController@update')->name('update-reply');
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('favorite-reply');
 Route::delete('/replies/{reply}/favorites', 'FavoritesController@delete')->name('delete-reply');
+
+Route::post('/replies/{reply}/best', 'BestRepliesController@store')->name('best-replies.store');
+
+
 Route::post('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@store');
 Route::delete('/threads/{channel}/{thread}/subscriptions', 'ThreadSubscriptionsController@destroy');
 
