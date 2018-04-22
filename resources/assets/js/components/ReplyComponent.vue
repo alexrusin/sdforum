@@ -30,15 +30,15 @@
 	    	</div>
 	    </div>
 		
-		<div class="panel-footer level">
+		<div class="panel-footer level" v-if="authorize('owns', reply) || authorize('owns', reply.thread)">
 
-			<div v-if="authorize('updateReply', reply)">
+			<div v-if="authorize('owns', reply)">
 				<button type="button" class="btn btn-xs mr-1 btn-primary" @click="editing=true">Edit</button>
 
 			<button type="button" class="btn btn-danger mr-1 btn-xs" @click="destroy">Delete</button>
 			</div>
 			
-			<button type="button" class="btn btn-default ml-a btn-xs" @click="markBestReply" v-show="!isBest">Best Reply?</button>
+			<button type="button" class="btn btn-default ml-a btn-xs" @click="markBestReply" v-show="!isBest" v-if="authorize('owns', reply.thread)">Best Reply?</button>
 
 			
 		</div>

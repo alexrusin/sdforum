@@ -58914,8 +58914,13 @@ exports.clearImmediate = clearImmediate;
 var user = window.App.user;
 
 module.exports = {
-	updateReply: function updateReply(reply) {
-		return reply.user_id === user.id;
+	owns: function owns(model) {
+		var prop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'user_id';
+
+		return model[prop] === user.id;
+	},
+	isAdmin: function isAdmin() {
+		return ['AlexRusin'].includes(user.name);
 	}
 };
 
@@ -60100,11 +60105,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 	components: { Replies: __WEBPACK_IMPORTED_MODULE_0__components_RepliesComponent_vue___default.a, SubscribeButton: __WEBPACK_IMPORTED_MODULE_1__components_SubscribeButton_vue___default.a },
-	props: ['initialRepliesCount'],
+	props: ['thread'],
 	data: function data() {
 		return {
-			repliesCount: this.initialRepliesCount
+			repliesCount: this.thread.replies_count,
+			locked: this.thread.locked
 		};
+	},
+
+
+	methods: {
+		toggleLock: function toggleLock() {
+			axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);
+			this.locked = !this.locked;
+		}
 	}
 });
 
@@ -60168,6 +60182,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__NewReplyComponent_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__NewReplyComponent_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__mixins_collection__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__lib_js__ = __webpack_require__(197);
+//
+//
+//
+//
 //
 //
 //
@@ -60885,53 +60903,58 @@ var render = function() {
           : _c("div", { domProps: { innerHTML: _vm._s(_vm.body) } })
       ]),
       _vm._v(" "),
-      _c("div", { staticClass: "panel-footer level" }, [
-        _vm.authorize("updateReply", _vm.reply)
-          ? _c("div", [
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-xs mr-1 btn-primary",
-                  attrs: { type: "button" },
-                  on: {
-                    click: function($event) {
-                      _vm.editing = true
-                    }
-                  }
-                },
-                [_vm._v("Edit")]
-              ),
-              _vm._v(" "),
-              _c(
-                "button",
-                {
-                  staticClass: "btn btn-danger mr-1 btn-xs",
-                  attrs: { type: "button" },
-                  on: { click: _vm.destroy }
-                },
-                [_vm._v("Delete")]
-              )
-            ])
-          : _vm._e(),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            directives: [
-              {
-                name: "show",
-                rawName: "v-show",
-                value: !_vm.isBest,
-                expression: "!isBest"
-              }
-            ],
-            staticClass: "btn btn-default ml-a btn-xs",
-            attrs: { type: "button" },
-            on: { click: _vm.markBestReply }
-          },
-          [_vm._v("Best Reply?")]
-        )
-      ])
+      _vm.authorize("owns", _vm.reply) ||
+      _vm.authorize("owns", _vm.reply.thread)
+        ? _c("div", { staticClass: "panel-footer level" }, [
+            _vm.authorize("owns", _vm.reply)
+              ? _c("div", [
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-xs mr-1 btn-primary",
+                      attrs: { type: "button" },
+                      on: {
+                        click: function($event) {
+                          _vm.editing = true
+                        }
+                      }
+                    },
+                    [_vm._v("Edit")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "btn btn-danger mr-1 btn-xs",
+                      attrs: { type: "button" },
+                      on: { click: _vm.destroy }
+                    },
+                    [_vm._v("Delete")]
+                  )
+                ])
+              : _vm._e(),
+            _vm._v(" "),
+            _vm.authorize("owns", _vm.reply.thread)
+              ? _c(
+                  "button",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: !_vm.isBest,
+                        expression: "!isBest"
+                      }
+                    ],
+                    staticClass: "btn btn-default ml-a btn-xs",
+                    attrs: { type: "button" },
+                    on: { click: _vm.markBestReply }
+                  },
+                  [_vm._v("Best Reply?")]
+                )
+              : _vm._e()
+          ])
+        : _vm._e()
     ]
   )
 }
@@ -62906,7 +62929,13 @@ var render = function() {
         on: { changed: _vm.fetch }
       }),
       _vm._v(" "),
-      _c("new-reply", { on: { created: _vm.add } })
+      _vm.$parent.locked
+        ? _c("p", [
+            _vm._v(
+              "\n        This thread has been locked.  No more replies are allowed.\n   "
+            )
+          ])
+        : _c("new-reply", { on: { created: _vm.add } })
     ],
     2
   )

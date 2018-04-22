@@ -18,6 +18,10 @@ Route::get('/', 'ThreadsController@index')->name('threads');
 Route::get('/threads', 'ThreadsController@index')->name('threads');
 Route::get('/threads/create', 'ThreadsController@create')->name('create-thread');
 Route::get('/threads/{channel}', 'ThreadsController@index')->name('channel');
+
+Route::post('/locked-threads/{thread}', 'LockedThreadsController@store')->name('locked-threads.store')->middleware('admin');
+Route::delete('/locked-threads/{thread}', 'LockedThreadsController@destroy')->name('locked-threads.destroy')->middleware('admin');
+
 Route::get('/threads/{channel}/{thread}', 'ThreadsController@show');
 Route::delete('/threads/{channel}/{thread}', 'ThreadsController@destroy')->name('delete-thread');
 
@@ -27,7 +31,7 @@ Route::post('/threads/{channel}/{thread}/replies', 'RepliesController@store')->m
 Route::delete('/replies/{reply}', 'RepliesController@destroy')->name('delete-reply');
 Route::patch('/replies/{reply}', 'RepliesController@update')->name('update-reply');
 Route::post('/replies/{reply}/favorites', 'FavoritesController@store')->name('favorite-reply');
-Route::delete('/replies/{reply}/favorites', 'FavoritesController@delete')->name('delete-reply');
+Route::delete('/replies/{reply}/favorites', 'FavoritesController@delete')->name('delete-favorite-reply');
 
 Route::post('/replies/{reply}/best', 'BestRepliesController@store')->name('best-replies.store');
 
