@@ -30,6 +30,7 @@
         .ml-a {margin-left: auto;}
 
     </style>
+    @yield('head')
 </head>
 <body>
     <div id="app">
