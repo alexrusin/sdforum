@@ -21,8 +21,6 @@ class CreateThreadsTest extends TestCase
    {
       parent::setup();
 
-      
-
       app()->singleton(Recaptcha::class, function() {
          return \Mockery::mock(Recaptcha::class, function($mockery) {
                $mockery->shouldReceive('passes')->andReturnTrue();
@@ -126,6 +124,58 @@ class CreateThreadsTest extends TestCase
       $thread = $this->postJson(route('threads'), $thread->toArray() + ['g-recaptcha-response' => 'token'])->json();
       $this->assertEquals("some-title-24-{$thread['id']}", $thread['slug']);
    }
+
+   /** @test */
+
+   public function a_thread_requires_a_title_and_body_to_be_updated() 
+   {
+      $this->withExceptionHandling();
+      $this->signIn();
+      $thread = create('App\Thread', ['user_id' => auth()->id()]);
+
+      $response = $this->patch($thread->path(), [
+         'title' => 'Changed',
+      ])->assertSessionHasErrors('body');
+
+      $this->patch($thread->path(), [
+         'body' => 'Changed',
+      ])->assertSessionHasErrors('title');
+
+   }
+
+   /** @test */
+   public function unauthorized_users_may_not_update_threads()
+   {
+
+      $this->withExceptionHandling();
+
+      $this->signIn();
+      $thread = create('App\Thread', ['user_id' => create('App\User')->id]);
+
+      $this->patchJson($thread->path(), [
+         'title' => 'Changed',
+         'body' => 'Changed body'
+      ])->assertStatus(403);
+   } 
+
+   /** @test */
+   public function a_thread_can_be_updated_by_its_creator()
+   {
+      $this->signIn();
+      $thread = create('App\Thread', ['user_id' => auth()->id()]);
+
+      $this->patchJson($thread->path(), [
+         'title' => 'Changed',
+         'body' => 'Changed body'
+      ]);
+
+      tap($thread->fresh(), function($thread){
+         $this->assertEquals('Changed', $thread->title);
+         $this->assertEquals('Changed body', $thread->body);
+      });
+
+      
+   } 
 
    /** @test */
    public function unauthorized_users_may_not_delete_threads() 

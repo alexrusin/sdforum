@@ -37,6 +37,6 @@ class SpamFree implements Rule
 
     public function message() 
     {
-
+        return 'Your post may contain spam';
     }
 }
