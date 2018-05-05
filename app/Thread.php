@@ -10,10 +10,11 @@ use App\ThreadSubscription;
 use App\Traits\RecordsActivity;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
-    use RecordsActivity, RecordsVisits;
+    use RecordsActivity, RecordsVisits, Searchable;
     
 	protected $guarded = [];
 
@@ -23,6 +24,10 @@ class Thread extends Model
 
     protected $casts = [
         'locked' => 'boolean'
+    ];
+
+    protected $searchArrayFields = [
+        'title', 'body'
     ];
 
     protected static function boot()
@@ -40,6 +45,19 @@ class Thread extends Model
         static::created(function($thread){
             $thread->update(['slug' => $thread->title]);
         });
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        foreach (array_keys($array) as $key) {
+            if (!in_array($key, $this->searchArrayFields)) {
+                unset($array[$key]);
+            }
+        }
+        
+        return $array;
     }
 
     public function getIsSubscribedToAttribute()

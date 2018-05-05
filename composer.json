@@ -12,9 +12,11 @@
         "guzzlehttp/guzzle": "^6.3",
         "kitetail/zttp": "^0.3.0",
         "laravel/framework": "5.5.*",
+        "laravel/scout": "^4.0",
         "laravel/tinker": "~1.0",
         "larsjanssen6/underconstruction": "~2.0",
-        "predis/predis": "~1.1"
+        "predis/predis": "~1.1",
+        "yab/laravel-scout-mysql-driver": "^2.0"
     },
     "require-dev": {
         "filp/whoops": "~2.0",
