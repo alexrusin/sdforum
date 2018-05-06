@@ -9,7 +9,8 @@
     </div>
     <div class="panel-body">
         <div class="form-group">
-             <textarea class="form-control" rows="10" v-model="thread.body"></textarea>
+            <wysiwyg v-model="thread.body" :value="thread.body"></wysiwyg>
+             <!-- <textarea class="form-control" rows="10" v-model="thread.body"></textarea> -->
         </div>
        
     </div>
@@ -42,9 +43,9 @@
     	</div>
        
     </div>
-    <div class="panel-body">
-        <div class="body" v-text="body"></div>
-    </div>
+    
+    <div class="panel-body" v-html="body"></div>
+
     <div class="panel-footer" v-if="authorize('owns', thread)">
         <button type="button" class="btn btn-primary btn-xs" @click="editing=true">Edit</button>
     </div>

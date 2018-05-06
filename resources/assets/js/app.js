@@ -39,9 +39,10 @@ Vue.prototype.signedIn = window.App.signedIn;
 Vue.component('flash', require('./components/FlashComponent.vue'));
 Vue.component('paginator', require('./components/PaginatorComponent.vue'));
 Vue.component('user-notifications', require('./components/UserNotifications.vue'));
-Vue.component('avatar-form', require('./components/AvatarForm'));
-
+Vue.component('avatar-form', require('./components/AvatarForm.vue'));
+Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 Vue.component('thread-view', require('./pages/ThreadComponent.vue'));
+
 
 const app = new Vue({
     el: '#app'
