@@ -19,7 +19,7 @@
 	    	<div v-if="editing">
 	    		<form @submit.prevent="update">
 		    		<div class="form-group">
-		    			<textarea class="form-control" v-model="body" required></textarea>
+		    			<wysiwyg v-model="body"></wysiwyg>
 		    		</div>
 		    		<button type="submit" class="btn-xs btn-success">Update</button>
 		    		<button type="button" class="btn-xs btn-link" @click="editing=false">Cancel</button>

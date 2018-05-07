@@ -9,8 +9,7 @@
     </div>
     <div class="panel-body">
         <div class="form-group">
-            <wysiwyg v-model="thread.body" :value="thread.body"></wysiwyg>
-             <!-- <textarea class="form-control" rows="10" v-model="thread.body"></textarea> -->
+            <wysiwyg v-model="thread.body"></wysiwyg>
         </div>
        
     </div>

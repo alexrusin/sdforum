@@ -1,8 +1,4 @@
 {
-    "/js/app.js": "/js/app.js?id=a24f96410c2b9e9dd9a8",
-    "/css/app.css": "/css/app.css?id=3ede8f2085da46f757cf",
-    "\\js\\app.js": "\\js\\app.js?id=a24f96410c2b9e9dd9a8",
-    "\\css\\app.css": "\\css\\app.css?id=3ede8f2085da46f757cf",
-    "\\css\\vendor\\jquery.atwho.css": "\\css\\vendor\\jquery.atwho.css?id=54500ce56314dbb65f6f",
-    "/css/vendor/jquery.atwho.css": "/css/vendor/jquery.atwho.css?id=54500ce56314dbb65f6f"
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css"
 }
