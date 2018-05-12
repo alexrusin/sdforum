@@ -16,6 +16,7 @@
         "laravel/tinker": "~1.0",
         "larsjanssen6/underconstruction": "~2.0",
         "predis/predis": "~1.1",
+        "stevebauman/purify": "^2.0",
         "yab/laravel-scout-mysql-driver": "^2.0"
     },
     "require-dev": {

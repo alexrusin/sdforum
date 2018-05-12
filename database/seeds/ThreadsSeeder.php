@@ -16,14 +16,7 @@ class ThreadsSeeder extends Seeder
     public function run()
     {
         $projects = [
-			'Op Amp',
-			'Power Amp',
-			'Class D Power Amp',
-			'Speedometer',
-			'Phase Lock Loop',
-			'Analog to Digital Converter',
-			'Pulse Code Modulator',
-			'Floating Point Multiplier',
+			'General',
 			'Binary Divider',
 			'Digital Integrator'
 		];
