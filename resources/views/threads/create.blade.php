@@ -35,7 +35,7 @@
                             <wysiwyg name="body"></wysiwyg>
                         </div>
                         <div class="form-group">
-                            <div class="g-recaptcha" data-sitekey="6LcQGFYUAAAAALanDTK2kVy0ZtRhezJEbFgznSKi"></div>
+                            <div class="g-recaptcha" data-sitekey="{{config('services.recaptcha.key')}}"></div>
                         </div>
 
                         <div class="form-group">
