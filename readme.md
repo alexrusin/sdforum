@@ -1,4 +1,4 @@
-# SD Forum
+# SD Forum [![Build Status](https://travis-ci.org/alexrusin/sdforum.svg?branch=master)](https://travis-ci.org/alexrusin/sdforum)
 
 This is an open source forum that can be used for senior design projects and other tutoring purposes
 
