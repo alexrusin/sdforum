@@ -10,7 +10,7 @@ class UserPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can update the given profile
+     * Determine whether the user can update the given profile.
      *
      * @param  \App\User  $user
      * @param  \App\User $profileUser
@@ -20,5 +20,4 @@ class UserPolicy
     {
         return $profileUser->id == $user->id;
     }
-
 }

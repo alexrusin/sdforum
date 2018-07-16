@@ -2,21 +2,16 @@
 
 namespace App;
 
-use App\Channel;
-use App\Events\ThreadReceivedNewReply;
-use App\RecordsVisits;
-use App\Reply;
-use App\ThreadSubscription;
-use App\Traits\RecordsActivity;
-use App\User;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use App\Traits\RecordsActivity;
+use App\Events\ThreadReceivedNewReply;
+use Illuminate\Database\Eloquent\Model;
 
 class Thread extends Model
 {
     use RecordsActivity, RecordsVisits, Searchable;
-    
-	protected $guarded = [];
+
+    protected $guarded = [];
 
     protected $with = ['creator', 'channel'];
 
@@ -38,11 +33,11 @@ class Thread extends Model
         //     $builder->withCount('replies');
         // });
 
-        static::deleting(function($thread){
+        static::deleting(function ($thread) {
             $thread->replies->each->delete();
         });
 
-        static::created(function($thread){
+        static::created(function ($thread) {
             $thread->update(['slug' => $thread->title]);
         });
     }
@@ -52,11 +47,11 @@ class Thread extends Model
         $array = $this->toArray();
 
         foreach (array_keys($array) as $key) {
-            if (!in_array($key, $this->searchArrayFields)) {
+            if (! in_array($key, $this->searchArrayFields)) {
                 unset($array[$key]);
             }
         }
-        
+
         return $array;
     }
 
@@ -66,32 +61,29 @@ class Thread extends Model
                 ->where('user_id', auth()->id())
                 ->exists();
     }
-	
+
     public function path()
     {
-
         return "/threads/{$this->channel->slug}/{$this->slug}";
-    	
     }
 
     public function replies()
     {
-    	return $this->hasMany(Reply::class);
+        return $this->hasMany(Reply::class);
     }
-
 
     public function creator()
     {
-    	return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function addReply($reply) 
+    public function addReply($reply)
     {
-    	$reply = $this->replies()->create($reply);
+        $reply = $this->replies()->create($reply);
 
         event(new ThreadReceivedNewReply($reply, $this));
 
-        return $reply;      
+        return $reply;
     }
 
     public function channel()
@@ -104,7 +96,7 @@ class Thread extends Model
         return $filters->apply($query);
     }
 
-    public function subscribe($userId = null) 
+    public function subscribe($userId = null)
     {
         $this->subscriptions()->create([
             'user_id' => $userId ?: auth()->id()
@@ -125,9 +117,8 @@ class Thread extends Model
         return $this->hasMany(ThreadSubscription::class);
     }
 
-    public function hasUpdatesFor($user) 
+    public function hasUpdatesFor($user)
     {
-
         $key = $user->visitedThreadCacheKey($this);
 
         return $this->updated_at > cache($key);
@@ -138,18 +129,18 @@ class Thread extends Model
         return 'slug';
     }
 
-    public function setSlugAttribute($value) 
+    public function setSlugAttribute($value)
     {
         $slug = str_slug($value);
 
-        if (static::whereSlug($slug)->exists()){
-            $slug = "{$slug}-" . $this->id;
+        if (static::whereSlug($slug)->exists()) {
+            $slug = "{$slug}-".$this->id;
         }
 
         $this->attributes['slug'] = $slug;
     }
 
-    public function markBestReply(Reply $reply)     
+    public function markBestReply(Reply $reply)
     {
         $this->update(['best_reply_id' => $reply->id]);
     }
@@ -163,5 +154,4 @@ class Thread extends Model
     {
         return \Purify::clean($title);
     }
-
 }

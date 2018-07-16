@@ -15,11 +15,11 @@ class RedirectIfEmailNotConfirmed
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->user()->confirmed) {
-            if($request->wantsJson()) {
+        if (! $request->user()->confirmed) {
+            if ($request->wantsJson()) {
                 return response('You must first confirm your email address', 400);
             }
-            
+
             return redirect('/threads')->with('flash', 'You must first confirm your email address');
         }
 

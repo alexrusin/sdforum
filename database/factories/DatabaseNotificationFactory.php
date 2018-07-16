@@ -1,10 +1,10 @@
 <?php
 
-use App\Notifications\ThreadWasUpdated;
 use App\User;
-use Faker\Generator as Faker;
-use Illuminate\Notifications\DatabaseNotification;
 use Ramsey\Uuid\Uuid;
+use Faker\Generator as Faker;
+use App\Notifications\ThreadWasUpdated;
+use Illuminate\Notifications\DatabaseNotification;
 
 $factory->define(DatabaseNotification::class, function (Faker $faker) {
     return [

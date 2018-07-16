@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 namespace App;
 
@@ -6,24 +6,24 @@ use Illuminate\Support\Facades\Redis;
 
 trait RecordsVisits
 {
-	public function recordVisit() 
+    public function recordVisit()
     {
         Redis::incr($this->visitsCacheKey());
 
         return $this;
     }
 
-    public function visits() 
+    public function visits()
     {
         return Redis::get($this->visitsCacheKey()) ?? 0;
     }
 
-    public function resetVisits() 
+    public function resetVisits()
     {
-         Redis::del($this->visitsCacheKey());
+        Redis::del($this->visitsCacheKey());
     }
 
-    public function visitsCacheKey() 
+    public function visitsCacheKey()
     {
         return "threads.{$this->id}.visits";
     }

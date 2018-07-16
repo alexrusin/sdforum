@@ -13,7 +13,7 @@ class AddConfirmedToUsers extends Migration
      */
     public function up()
     {
-        Schema::table('users', function(Blueprint $table){
+        Schema::table('users', function (Blueprint $table) {
             $table->boolean('confirmed')->default(false)->after('remember_token');
             $table->string('confirmation_token', 25)->nullable()->after('confirmed')->unique();
         });
@@ -26,7 +26,7 @@ class AddConfirmedToUsers extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn(['confirmed', 'confirmation_token']);
         });
     }

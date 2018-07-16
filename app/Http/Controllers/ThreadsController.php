@@ -2,25 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use App\Channel;
-use App\Filters\ThreadFilters;
-use App\Rules\Recaptcha;
 use App\Thread;
+use App\Channel;
 use App\Trending;
-use App\User;
-use Carbon\Carbon;
+use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
-
+use App\Filters\ThreadFilters;
 
 class ThreadsController extends Controller
 {
-
     public function __construct()
     {
         if (app()->environment('production')) {
             $this->middleware('under-construction');
         }
-       
+
         $this->middleware('auth')->except(['index', 'show']);
     }
 
@@ -60,7 +56,7 @@ class ThreadsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Recaptcha $recaptcha)
-    {   
+    {
         request()->validate([
             'title' => 'required|spamfree',
             'body' => 'required|spamfree',
@@ -90,14 +86,13 @@ class ThreadsController extends Controller
      */
     public function show($channelId, Thread $thread, Trending $trending)
     {
-        
-        if(auth()->check()) {
+        if (auth()->check()) {
             auth()->user()->read($thread);
         }
 
         $trending->push($thread);
         $thread->recordVisit();
-        
+
         return view('threads.show', compact('thread'));
     }
 
@@ -128,7 +123,7 @@ class ThreadsController extends Controller
     public function destroy($channel, Thread $thread)
     {
         $this->authorize('update', $thread);
-        
+
         $thread->delete();
 
         if (request()->wantsJson()) {
@@ -136,10 +131,9 @@ class ThreadsController extends Controller
         }
 
         return redirect()->route('threads');
-        
     }
 
-    protected function getThreads($channel, $filters) 
+    protected function getThreads($channel, $filters)
     {
         $threads = Thread::latest()->filter($filters);
 

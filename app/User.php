@@ -2,12 +2,9 @@
 
 namespace App;
 
-use App\Activity;
-use App\Reply;
-use App\Thread;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
@@ -40,46 +37,46 @@ class User extends Authenticatable
         return 'name';
     }
 
-    public function threads() 
+    public function threads()
     {
-        return $this->hasMany(Thread::class)->latest(); 
+        return $this->hasMany(Thread::class)->latest();
     }
 
-    public function activity() 
+    public function activity()
     {
         return $this->hasMany(Activity::class);
     }
 
-    public function confirm() 
+    public function confirm()
     {
         $this->confirmed = true;
         $this->confirmation_token = null;
         $this->save();
     }
 
-    public function isAdmin() 
+    public function isAdmin()
     {
         return in_array($this->name, ['AlexRusin'], true);
     }
 
-    public function lastReply() 
+    public function lastReply()
     {
         return $this->hasOne(Reply::class)->latest();
     }
 
-    public function read($thread) {
-        cache()->forever(
-                $this->visitedThreadCacheKey($thread), 
-                \Carbon\Carbon::now());
-
-    }
-
-    public function visitedThreadCacheKey($thread) 
+    public function read($thread)
     {
-        return sprintf("users.%s.visits.%s", $this->id, $thread->id);
+        cache()->forever(
+                $this->visitedThreadCacheKey($thread),
+                \Carbon\Carbon::now());
     }
 
-    public function getAvatarPathAttribute($value) 
+    public function visitedThreadCacheKey($thread)
+    {
+        return sprintf('users.%s.visits.%s', $this->id, $thread->id);
+    }
+
+    public function getAvatarPathAttribute($value)
     {
         return $value ? Storage::url($value) : Storage::url('avatars/default.jpg');
     }

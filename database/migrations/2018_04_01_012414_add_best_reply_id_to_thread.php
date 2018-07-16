@@ -13,8 +13,8 @@ class AddBestReplyIdToThread extends Migration
      */
     public function up()
     {
-        Schema::table('threads', function(Blueprint $table){
-           $table->unsignedInteger('best_reply_id')->after('body')->nullable();
+        Schema::table('threads', function (Blueprint $table) {
+            $table->unsignedInteger('best_reply_id')->after('body')->nullable();
         });
     }
 
@@ -25,7 +25,7 @@ class AddBestReplyIdToThread extends Migration
      */
     public function down()
     {
-        Schema::table('threads', function(Blueprint $table) {
+        Schema::table('threads', function (Blueprint $table) {
             $table->dropColumn('best_reply_id');
         });
     }
