@@ -3,19 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Thread;
-use App\User;
-use Illuminate\Http\Request;
 
 class ThreadSubscriptionsController extends Controller
 {
-    public function store($channelId, Thread $thread) 
+    public function store($channelId, Thread $thread)
     {
-    	$thread->subscribe();
+        $thread->subscribe();
     }
 
     public function destroy($channelId, Thread $thread)
     {
-    	$thread->unsubscribe();
+        $thread->unsubscribe();
     }
-
 }

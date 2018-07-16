@@ -2,39 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Favorite;
 use App\Reply;
-use DB;
+use App\Favorite;
 use Illuminate\Http\Request;
 
 class FavoritesController extends Controller
 {
-
-	public function __construct()
-	{
-		$this->middleware('auth');
-	}
-
-    public function store(Reply $reply) 
+    public function __construct()
     {
-    	$reply->favorite();
+        $this->middleware('auth');
+    }
 
-    	if (request()->wantsJson()) {
-    		return response(['status' => 'Favorite created']);
-    	} 
+    public function store(Reply $reply)
+    {
+        $reply->favorite();
 
-    	return back();  	
+        if (request()->wantsJson()) {
+            return response(['status' => 'Favorite created']);
+        }
+
+        return back();
     }
 
     public function delete(Reply $reply)
     {
-    	$reply->unfavorite();
+        $reply->unfavorite();
 
-    	if (request()->wantsJson()) {
-    		return response(['status' => 'Favorite deleted']);
-    	}
+        if (request()->wantsJson()) {
+            return response(['status' => 'Favorite deleted']);
+        }
         csrf_token();
 
-    	return back();
+        return back();
     }
 }

@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 
 class UserAvatarController extends Controller
 {
-    public function store() 
+    public function store()
     {
-   		request()->validate([
-   			'avatar' => 'required|image'
-   		]);
-    
-      Storage::delete(auth()->user()->getOriginal('avatar_path'));
+        request()->validate([
+            'avatar' => 'required|image'
+        ]);
 
-   		auth()->user()->update([
-   			'avatar_path' => request()->file('avatar')->store('avatars')
-   		]);
+        Storage::delete(auth()->user()->getOriginal('avatar_path'));
 
-   		return response('Avatar uploaded', 200);
+        auth()->user()->update([
+            'avatar_path' => request()->file('avatar')->store('avatars')
+        ]);
+
+        return response('Avatar uploaded', 200);
     }
 }

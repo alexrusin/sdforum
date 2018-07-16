@@ -2,73 +2,67 @@
 
 namespace App;
 
-use App\Favorite;
-use App\Thread;
-use App\Traits\RecordsActivity;
-use App\User;
 use Carbon\Carbon;
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
 
 class Reply extends Model
 {
-   use Favoritable;
-   use RecordsActivity;
-   
-   protected $guarded = [];
-   protected $appends = ['favoritesCount', 'isFavorited', 'isBest'];
+    use Favoritable;
+    use RecordsActivity;
 
-   protected $with = ['owner', 'favorites'];
+    protected $guarded = [];
+    protected $appends = ['favoritesCount', 'isFavorited', 'isBest'];
 
-   protected static function boot()
-   {
-      parent::boot();
+    protected $with = ['owner', 'favorites'];
 
-      static::created(function($reply){
-         $reply->thread->increment('replies_count');
-      });
+    protected static function boot()
+    {
+        parent::boot();
 
-      static::deleted(function($reply){
-         $reply->thread->decrement('replies_count');
-      });
+        static::created(function ($reply) {
+            $reply->thread->increment('replies_count');
+        });
 
+        static::deleted(function ($reply) {
+            $reply->thread->decrement('replies_count');
+        });
+    }
 
-   }
-   
-   public function owner()
-   {
-   		return $this->belongsTo(User::class, 'user_id');
-   }
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 
-   public function thread()
-   {
-   		return $this->belongsTo(Thread::class);
-   }
+    public function thread()
+    {
+        return $this->belongsTo(Thread::class);
+    }
 
-   public function path() 
-   {
-      return $this->thread->path() . "#reply-{$this->id}";
-   }
+    public function path()
+    {
+        return $this->thread->path()."#reply-{$this->id}";
+    }
 
-   public function wasJustPublished() 
-   {
-      
-      return $this->created_at->gt(Carbon::now()->subMinute());
-   }
+    public function wasJustPublished()
+    {
+        return $this->created_at->gt(Carbon::now()->subMinute());
+    }
 
-   public function setBodyAttribute($body) 
-   {
-      $this->attributes['body'] = preg_replace('/@([\w\-]+)/', '<a href="/profiles/$1">$0</a>', $body);
-   }
+    public function setBodyAttribute($body)
+    {
+        $this->attributes['body'] = preg_replace('/@([\w\-]+)/', '<a href="/profiles/$1">$0</a>', $body);
+    }
 
-   public function isBest() 
-   {
-      return $this->thread->best_reply_id == $this->id;
-   }
+    public function isBest()
+    {
+        return $this->thread->best_reply_id == $this->id;
+    }
 
-   public function getIsBestAttribute() 
-   {
-      return $this->isBest();
-   }
+    public function getIsBestAttribute()
+    {
+        return $this->isBest();
+    }
 
     public function getBodyAttribute($body)
     {
