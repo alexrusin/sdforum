@@ -67,7 +67,7 @@ class User extends Authenticatable
     {
         return in_array($this->email, config('council.administrators'));
     }
-    
+
     /**
      * Determine if the user is an administrator.
      *
