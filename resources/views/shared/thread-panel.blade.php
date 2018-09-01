@@ -35,7 +35,8 @@
     	<div class="level">
             <img src="{{$thread->creator->avatar_path}}" width="25" height="25" class="mr-1">
     		<span class="flex">
-    			<a href="{{route('user-profile', ['user' => $thread->creator->name])}}">{{$thread->creator->name}}</a> posted:
+    			<a href="{{route('user-profile', ['user' => $thread->creator->name])}}">{{$thread->creator->name}} ({{$thread->creator->reputation}}XP)
+                </a> posted:
         		<a href="{{$thread->path()}}" v-text="title"></a>
     		</span>
     		<span>{{$thread->created_at->diffForHumans()}}</span>	 
