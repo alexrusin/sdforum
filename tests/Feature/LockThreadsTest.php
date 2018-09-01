@@ -26,7 +26,10 @@ class LockThreadsTest extends TestCase
 	public function administrators_may_lock_threads()
 	{
 		$this->withExceptionHandling();
-		$this->signIn(factory('App\User')->states('administrator')->create());
+		$user = create('App\User');
+		
+		config(['council.administrators' => [ $user->email ]]);
+        $this->signIn($user);
 
 		$thread = create('App\Thread', ['user_id' => auth()->id()]);
 
