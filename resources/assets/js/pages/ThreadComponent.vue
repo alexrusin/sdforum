@@ -2,8 +2,9 @@
 
 	import Replies from '../components/RepliesComponent.vue';
 	import SubscribeButton from '../components/SubscribeButton.vue';
+	import Highlight from '../components/Highlight';
 	export default {
-		components: {Replies, SubscribeButton},
+		components: {Replies, SubscribeButton, Highlight},
 		props: ['thread'],
 		data() {
 			return {
