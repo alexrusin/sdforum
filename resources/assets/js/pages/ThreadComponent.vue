@@ -15,6 +15,18 @@
 			};
 		},
 
+		mounted () {
+            this.highlight(this.$refs.question);
+        },
+         watch: {
+            editing() {
+                if(this.editing) return; 
+            	this.$nextTick(() => {
+            		this.highlight(this.$refs.question);
+            	});
+            }
+        },
+
 		methods: {
 			toggleLock() {
 				axios[this.locked ? 'delete' : 'post']('/locked-threads/' + this.thread.slug);

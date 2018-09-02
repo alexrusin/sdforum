@@ -25,7 +25,7 @@
 		    		<button type="button" class="btn-xs btn-link" @click="editing=false">Cancel</button>
 	    		</form>
 	    	</div>
-	    	<div v-else v-html="body">
+	    	<div ref="body" v-else v-html="body">
 	       		
 	    	</div>
 	    </div>
@@ -74,6 +74,18 @@
 				this.isBest = (id === this.id);
 			});
 		},
+
+		mounted() {
+            this.highlight(this.$refs['body']);
+        },
+         watch: {
+            editing() {
+                if(this.editing) return;
+            	this.$nextTick(() => {
+            		this.highlight(this.$refs['body']);
+            	});  
+            }
+        },
 
 		methods: {
 			update() {
