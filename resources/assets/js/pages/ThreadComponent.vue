@@ -2,8 +2,9 @@
 
 	import Replies from '../components/RepliesComponent.vue';
 	import SubscribeButton from '../components/SubscribeButton.vue';
+	import Highlight from '../components/Highlight';
 	export default {
-		components: {Replies, SubscribeButton},
+		components: {Replies, SubscribeButton, Highlight},
 		props: ['thread'],
 		data() {
 			return {
@@ -14,18 +15,6 @@
 				body: this.thread.body
 			};
 		},
-
-		mounted () {
-            this.highlight(this.$refs.question);
-        },
-         watch: {
-            editing() {
-                if(this.editing) return; 
-            	this.$nextTick(() => {
-            		this.highlight(this.$refs.question);
-            	});
-            }
-        },
 
 		methods: {
 			toggleLock() {

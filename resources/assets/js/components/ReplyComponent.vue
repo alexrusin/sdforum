@@ -25,8 +25,8 @@
 		    		<button type="button" class="btn-xs btn-link" @click="editing=false">Cancel</button>
 	    		</form>
 	    	</div>
-	    	<div ref="body" v-else v-html="body">
-	       		
+	    	<div v-else>
+	       		<highlight :content="body"></highlight>
 	    	</div>
 	    </div>
 		
@@ -49,9 +49,10 @@
 <script>
 	import Favorite from './FavoriteComponent.vue';
 	import moment from 'moment';
+	import Highlight from './Highlight';
 	export default {
 		props: ['data'],
-		components: {Favorite},
+		components: {Favorite, Highlight},
 		data() {
 			return {
 				editing: false,
@@ -75,17 +76,6 @@
 			});
 		},
 
-		mounted() {
-            this.highlight(this.$refs['body']);
-        },
-         watch: {
-            editing() {
-                if(this.editing) return;
-            	this.$nextTick(() => {
-            		this.highlight(this.$refs['body']);
-            	});  
-            }
-        },
 
 		methods: {
 			update() {
