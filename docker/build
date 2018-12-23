@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker build -f app/Dockerfile -t sdforum/app:latest ./app
+docker build -f node/Dockerfile -t sdforum/node:latest ./node
