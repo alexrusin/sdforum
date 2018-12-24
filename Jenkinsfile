@@ -4,7 +4,7 @@ node('master') {
     stage('build') {
         git url: 'git@github.com:alexrusin/sdforum.git'
 	
-	chmod u+x develop
+        sh "chmod u+x develop"
         // Start services (Let docker-compose build containers for testing)
         sh "./develop up -d"
 
