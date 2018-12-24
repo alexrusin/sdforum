@@ -18,7 +18,7 @@ git archive --format=tar --worktree-attributes $HASH | tar -xf -  -C $DIR/app/pa
 # Production Build Steps
 ## (Decision between export-ignore'ing docker/develop command or not)
 cd $DIR/app/packaged
-chown u+x develop
+chmod u+x develop
 ./develop composer install --no-dev
 ./develop npm install
 ./develop npm run production
