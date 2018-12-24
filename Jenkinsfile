@@ -4,21 +4,22 @@ node('master') {
     stage('build') {
         git url: 'git@github.com:alexrusin/sdforum.git'
 	
-        sh "chmod u+x develop"
+       
         // Start services (Let docker-compose build containers for testing)
+        sh "chmod u+x develop"
         sh "./develop up -d"
 
         // Get composer dependencies
         sh "./develop composer install"
 
         // Create .env file for testing
-        sh 'cp .env.example .env'
+        sh '/var/lib/jenkins/.venv/bin/aws s3 cp s3://alex-rusin-test-secrets/.env.jenkins .env'
         sh './develop art key:generate'
-        sh 'sed -i "s/REDIS_HOST=.*/REDIS_HOST=redis/" .env'
-        sh 'sed -i "s/CACHE_DRIVER=.*/CACHE_DRIVER=redis/" .env'
-        sh 'sed -i "s/SESSION_DRIVER=.*/SESSION_DRIVER=redis/" .env'
     }
     stage('test') {
         sh "APP_ENV=testing ./develop test"
+    }
+    stage('tear-down') {
+        sh "./develop down"
     }
 }
