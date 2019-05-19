@@ -43,6 +43,11 @@ Vue.component('avatar-form', require('./components/AvatarForm.vue'));
 Vue.component('wysiwyg', require('./components/Wysiwyg.vue'));
 Vue.component('thread-view', require('./pages/ThreadComponent.vue'));
 
+Vue.component('stock-chart', require('./components/stocks/StockChart.vue'));
+Vue.component('digital-currency-chart', require('./components/stocks/DigitalCurrencyChart.vue'));
+Vue.component('currency-symbol-search', require('./components/stocks/CurrencySymbolSearch.vue'));
+Vue.component('symbol-search', require('./components/stocks/SymbolSearch.vue'));
+
 const app = new Vue({
     el: '#app'
 });

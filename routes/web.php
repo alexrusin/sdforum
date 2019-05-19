@@ -59,3 +59,11 @@ Route::group([
     Route::get('/channels', 'ChannelsController@index')->name('admin.channels.index');
     Route::get('/channels/create', 'ChannelsController@create')->name('admin.channels.create');
 });
+
+Route::group([
+    'prefix' => 'stocks',
+    'namespace' => 'Stocks',
+    'middleware' => 'auth'
+], function() {
+    Route::get('/', 'StocksController@index')->name('stocks');
+});

@@ -42,6 +42,8 @@
                     @endforeach
                   </ul>
                 </li>
+
+                <li><a href="{{route('stocks')}}">Stocks</a></li>
             </ul>
 
             <!-- Right Side Of Navbar -->
