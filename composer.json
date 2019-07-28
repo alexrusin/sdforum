@@ -17,6 +17,7 @@
         "larsjanssen6/underconstruction": "~2.0",
         "predis/predis": "~1.1",
         "stevebauman/purify": "^2.0",
+        "sunrise-integration/laravel-analytics": "^1.1",
         "yab/laravel-scout-mysql-driver": "^2.0"
     },
     "require-dev": {
@@ -26,6 +27,12 @@
         "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0"
     },
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://packages.sunriseintegration.com"
+        }
+    ], 
     "autoload": {
         "classmap": [
             "database/seeds",
