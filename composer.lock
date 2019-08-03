@@ -2279,17 +2279,17 @@
         },
         {
             "name": "sunrise-integration/laravel-analytics",
-            "version": "1.1.2",
+            "version": "1.1.3",
             "source": {
                 "type": "git",
                 "url": "git@github.com:alexrsunrise/laravel-analytics.git",
-                "reference": "5b761cc59a0f1f93f3027e7a65e71e4a740c539c"
+                "reference": "81820ef3a4c8afcab209b14a69e264cbd12f1436"
             },
             "dist": {
                 "type": "tar",
-                "url": "https://packages.sunriseintegration.com/dist/sunrise-integration/laravel-analytics/sunrise-integration-laravel-analytics-5b761cc59a0f1f93f3027e7a65e71e4a740c539c-zip-176852.tar",
-                "reference": "5b761cc59a0f1f93f3027e7a65e71e4a740c539c",
-                "shasum": "02e21df8298338a17a119cd73cce8df4d7687a27"
+                "url": "https://packages.sunriseintegration.com/dist/sunrise-integration/laravel-analytics/sunrise-integration-laravel-analytics-81820ef3a4c8afcab209b14a69e264cbd12f1436-zip-df7532.tar",
+                "reference": "81820ef3a4c8afcab209b14a69e264cbd12f1436",
+                "shasum": "866296085ee5ffc89504fc7912ded62e4c6d9b56"
             },
             "require": {
                 "laravel/framework": "^5.4",
@@ -2324,10 +2324,10 @@
                 "laravel"
             ],
             "support": {
-                "source": "https://github.com/alexrsunrise/laravel-analytics/tree/1.1.2",
+                "source": "https://github.com/alexrsunrise/laravel-analytics/tree/1.1.3",
                 "issues": "https://github.com/alexrsunrise/laravel-analytics/issues"
             },
-            "time": "2019-07-25 18:09:29"
+            "time": "2019-07-31 15:31:55"
         },
         {
             "name": "swiftmailer/swiftmailer",
