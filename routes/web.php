@@ -64,6 +64,6 @@ Route::group([
     'prefix' => 'stocks',
     'namespace' => 'Stocks',
     'middleware' => 'auth'
-], function() {
+], function () {
     Route::get('/', 'StocksController@index')->name('stocks');
 });
