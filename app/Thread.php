@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Laravel\Scout\Searchable;
-use App\Traits\RecordsActivity;
 use App\Events\ThreadReceivedNewReply;
+use App\Traits\RecordsActivity;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Thread extends Model
 {
