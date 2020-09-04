@@ -42,35 +42,35 @@ return [
      */
     'throttle' => true,
 
-        /*
+    /*
         |--------------------------------------------------------------------------
         | Throttle settings (only when throttle is true)
         |--------------------------------------------------------------------------
         |
 
         */
-        /*
+    /*
          * Set the maximum number of attempts to allow.
          */
-        'max_attempts' => 3,
+    'max_attempts' => 3,
 
-        /*
+    /*
          * Show attempts left.
          */
-        'show_attempts_left' => true,
+    'show_attempts_left' => true,
 
-        /*
+    /*
          * Attempts left message.
          */
-        'attempts_message' => 'Attempts left: %i',
+    'attempts_message' => 'Attempts left: %i',
 
-        /*
+    /*
          * Too many attempts message.
          */
-        'seconds_message' => 'Too many attempts please try again in %i seconds.',
+    'seconds_message' => 'Too many attempts please try again in %i seconds.',
 
-        /*
+    /*
          * Set the number of minutes to disable login.
          */
-        'decay_minutes' => 5,
+    'decay_minutes' => 5,
 ];
