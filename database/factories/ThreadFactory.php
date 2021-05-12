@@ -1,9 +1,9 @@
 <?php
 
-use App\User;
+use App\Channel;
 use App\Reply;
 use App\Thread;
-use App\Channel;
+use App\User;
 use Faker\Generator as Faker;
 
 /* @var Illuminate\Database\Eloquent\Factory $factory */
