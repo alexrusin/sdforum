@@ -1,8 +1,8 @@
 <?php
 
-use App\User;
-use App\Thread;
 use App\Channel;
+use App\Thread;
+use App\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Redis;
 
