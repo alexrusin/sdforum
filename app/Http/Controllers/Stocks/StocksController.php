@@ -6,8 +6,8 @@ use App\Http\Controllers\Controller;
 
 class StocksController extends Controller
 {
-    public function index() {
+    public function index()
+    {
         return view('stocks.stocks-chart');
     }
-    
 }
